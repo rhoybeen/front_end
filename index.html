@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"> 
+    <title>Defect Portal</title>
+<link rel="stylesheet" href="./owlcarousel/owl.carousel.min.css">
+<link rel="stylesheet" href="./owlcarousel/owl.theme.default.min.css">
+<link rel="stylesheet" href="./arrow.css">
+<link rel="stylesheet" href="./defect.css">
+
+<link type="text/css" rel="stylesheet" href="https://m.media-amazon.com/images/G/01/oneg/assets/3.2.6/css/application.min.css" />
+<link rel="stylesheet" type="text/css" href="./jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="./jquery.loading.min.css"/>
+<script type="text/javascript" src="./jquery-2.2.4.min.js"></script>
+
+<script type="text/javascript" src="https://m.media-amazon.com/images/G/01/oneg/assets/3.2.6/js/framework.min.js" async></script>
+<script type="text/javascript" src="//internal-cdn.amazon.com/sentry.amazon.com/public/javascripts/openid.xhr.js" async></script>
+<script type="text/javascript" src="https://m.media-amazon.com/images/G/01/oneg/assets/3.2.6/js/oneg-loading.min.js" async></script>
+
+<script type="text/javascript" src="./jsplumb.min.js"/> "></script>
+<script type="text/javascript" src="./jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="./jquery.loading.min.js"></script>
+<script type="text/javascript" src="./owlcarousel/owl.carousel.min.js" async></script>
+<script type="text/javascript" src="./defect.js"/> "></script>
+<script type="text/javascript" src="./validation.js"/> "></script>
+</head>
+
+<body>
+     <hr>
+    <div class="container-fluid" >
+        <div class="page-header">
+            <h3>Defect Details ✅❎❌</h3>
+        </div>
+        <div class="well" id="form_line">
+            <form class="form-inline" role="search" method="POST">
+                <div class="form-group">
+                    <select id="queryType" name="queryType" class="select">
+                    <option value="shipmentId"><label>Shipment ID</label></option>
+                    <option value="defectId">Defect ID</option>
+                    </select>
+
+                    <input class="form-control" type="text" size="15" id="queryId" name="queryId"
+                    placeholder="input id here.." value="${lookupId}" required="required">
+                </div>
+                <button type="button" class="btn btn-default" id="btn_submit" onclick="queryDefects()">Submit</button>
+            </form>
+        </div>
+
+
+        <div class="row" id="layer_candidates">
+          <div class="col-md-6" id="component_candidates_info">
+            <div class="panel panel-default" id="panel_candidates_info">
+                <div class="panel-heading" id="panel_candidates_info_head">
+                    <h3 class="panel-title">Defect Candidates</h3>
+                </div>
+                <div class="panel-body">
+                    here to show candidates info.
+                </div>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+          </div>
+
+          <div class="col-md-4" id="component_candidate_attachments">
+            <div class="panel panel-primary" id="panel_candidates_attachments">
+                <div class="panel-heading" id="panel_candidates_attachments_head">
+                    <h3 class="panel-title">Candidate Attachments</h3>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="layer_splitter" style="height: 80px;width: 100%;">
+            <div class="col-md-4">
+                <center><span class="arrow"> &#8642;</span></center>
+            </div>
+            
+        </div>
+
+        <div class="row" id="layer_defects">
+          <div class="col-md-6" id="component_defect_info">
+            <div class="panel panel-default" id="panel_defect_info" onclick="clctable()">
+                <div class="panel-heading" id="panel_defect_info_head">
+                    <h3 class="panel-title">Defect Info</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class='none' id="validation_list">
+                    </ul>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <center><span style="font-size: 200px">&#8640;</span></center>
+
+          </div>
+
+          <div class="col-md-4" id="component_defect_attachments">
+            <div class="panel panel-success" id="panel_defect_attachments">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Defect Attachments</h3>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="layer_coaching">
+          <div class="col-md-4" id="component_andon">
+            <div class="panel panel-success" id="panel_andon">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Defect Fee/Andon</h3>
+                </div>
+                <div class="panel-body">
+
+<ul id="coachingTab" class="nav nav-tabs">
+   <li class="active"><a href="#andon_tab_content" data-toggle="tab">
+      Andon Events</a>
+   </li>
+   <li><a href="#fee_tab_content" data-toggle="tab">
+      Fee</a>
+   </li>
+</ul>
+<div id="coachingContent" class="tab-content">
+    <div class="tab-pane fade in active" id="andon_tab_content">
+        <table class="table table-striped" id="table_andon_events" width="100%">
+            <thead>
+            <tr>
+                <th>Source System</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tab-pane fade" id="fee_tab_content">
+         <table id="table_fee_info"  class="table table-striped" width="100%">
+            <tr>
+                <th>Fee Amount:</th>
+                <td id="feeAmount"></td>
+            </tr>
+            <tr>
+                <th>Currency:</th>
+                <td id="feeCurrency"></td>
+            </tr>
+            <tr>
+                <th>Fee Mode:</th>
+                <td id="feeMode"></td>
+            </tr>
+            <tr>
+                <th>Fee Rate:</th>
+                <td id="feeRate"></td>
+            </tr>
+            <tr>
+                <th>Quantity:</th>
+                <td id="feeQuantity"></td>
+            </tr>    
+            <tr>
+                <th>Created By:</th>
+                <td id="feeCreatedBy"></td>
+            </tr>                                                 
+            <tr>
+                <th>Created Time:</th>
+                <td id="feeCreatedTime"></td>
+            </tr>
+            <tr>
+                <th>Last Updated By:</th>
+                <td id="feeLastUpdatedBy"></td>
+            </tr>
+            <tr>
+                <th>Last Updated Date:</th>
+                <td id="feeLastUpdatedDate"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+                </div>
+            </div>
+          </div>
+
+          <div class="col-md-4"></div>
+
+          <div class="col-md-4" id="component_attachment_hit">
+            <div class="panel panel-success" id="panel_attachment_hit">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Defect Info</h3>
+                </div>
+                <div class="panel-body">
+                    
+                    <div class="well">
+                        <label>Select attachment hit assignment:</label>
+                        <select id="selectAssignment" class="select">
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    </div>
+                    <table class="table table-condensed" id="table_hit_assignment">
+                        <tr>
+                            <th>Hit ID:</th>
+                            <td id="asHitID"></td>
+                        </tr>
+                        <tr>
+                            <th>Assignment ID:</th>
+                            <td id="asAssignmentID"></td>
+                        </tr>
+                        <tr>
+                            <th>Attachment URI:</th>
+                            <td id="asAssignmentUri"></td>
+                        </tr>
+                        <tr>
+                            <th>Assignment Status:</th>
+                            <td id="asAssignmentStatus"></td>
+                        </tr>
+                        <tr>
+                            <th>Accepted Time(UTC):</th>
+                            <td id="asAcceptedTime"></td>
+                        </tr>
+                        <tr>
+                            <th>Answer:</th>
+                            <td id="asAnswer"></td>
+                        </tr>
+                        <tr>
+                            <th>Approved Time:</th>
+                            <td id="asApprovedTime"></td>
+                        </tr>
+                        <tr>
+                            <th>Worker ID:</th>
+                            <td id="asWorkerId"></td>
+                        </tr>
+                        <tr>
+                            <th>Submit Time(UTC):</th>
+                            <td id="asSubmitTime"></td>
+                        </tr>
+                        <tr>
+                            <th>Created By:</th>
+                            <td id="asCreatedBy"></td>
+                        </tr>
+                        <tr>
+                            <th>Creation Time(UTC):</th>
+                            <td id="asCreationTime"></td>
+                        </tr>
+                        <tr>
+                            <th>Last Update Time(UTC):</th>
+                            <td id="asLastUpdateTime"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+
+
+<script type="text/javascript">
+    var data = [
+    ];
+    $("#asCreatedBy").append('<a href="#">sadas</a>')
+    $("#validation_list").append("loading");
+   // buildValidationList(data,'ITEM_NOT_ON_PO');
+   $("#component_candidate_attachments").click(function(){
+        $("#component_candidate_attachments").loading();
+   });
+</script>
+
+</html>

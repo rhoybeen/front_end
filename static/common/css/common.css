@@ -1,0 +1,47 @@
+body {
+    font-size: 12px;
+    padding-right: 0 !important;
+}
+
+.box-header {
+    border-radius: 4px;
+    background: #F5F5F5;
+    border-top: none;
+    border-bottom: none;
+    box-shadow: none;
+}
+
+.page-title h3 {
+    text-align: center;
+    font-weight: 300;
+    padding-bottom: 15px;
+}
+
+.footer {
+  margin-top: 10px;
+  padding: 30px;
+  background: #F5F5F5;
+}
+
+.panel-heading-sm {
+    height: 28px;
+    padding: 4px 10px;
+}
+
+.panel-body-sm {
+   padding: 5px 10px;
+}
+
+table.table-heading-sm thead tr th, table.table-heading-sm  tbody tr td {
+  	font-size: 12px;
+    height: 28px;
+    padding: 4px 10px;
+}
+
+.table-body-sm {
+    padding: 5px 10px;
+}
+
+.defect-asin-info-table {
+    width: 100%;
+}

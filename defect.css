@@ -1,0 +1,12 @@
+ul.none {
+	list-style-type:none;
+}
+
+li.fail{
+	text-decoration:line-through;
+	color:red;
+}
+
+li.invalid{
+	color: grey;
+}

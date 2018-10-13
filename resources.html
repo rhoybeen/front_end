@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>移动边缘CDN缓存协作系统</title>
+</head>
+<body>
+  <link href="./resource.css" rel="stylesheet">
+  <link href="./bootstrap/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./thumbnail-gallery.css">
+
+  <script src="./jquery/jquery.min.js"></script>
+  <script src="./bootstrap/bootstrap.min.js"></script>
+  <script src="./resource.js"></script>
+
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <h1>移动边缘CDN缓存协作系统</h1>
+  <p>WSPN实验室 北京邮电大学</p> 
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">导航</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">控制台</a></li>
+        <li><a href="#">视频点播</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid gallery-container">
+    <div class="tz-gallery" id="gallery">
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="./1.jpg" alt="1" width="100%">
+          <div class="caption">
+              <h3>内容名：</h3>
+              <p align="left">缓存位置：<span></span></p>
+              <p align="left">点击量：<span></span></p>
+              <div class="progress">
+                  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 73%" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <div width="100%" class="no_cache"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <p>Copyright©2018 WSPN-BUPT All Rights Reserved.</p>
+</div>
+</body>
+</html>
